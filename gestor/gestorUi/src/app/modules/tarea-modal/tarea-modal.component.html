@@ -1,0 +1,13 @@
+<form [formGroup]="form">
+  <mat-form-field>
+    <input matInput type="text" placeholder="nombre" formControlName="nombre">
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <input matInput type="text" placeholder="descripcion" formControlName="descripcion">
+  </mat-form-field>
+  <br>
+  <button mat-raised-button color="primary" matTooltip="Agregar Tarea"  matTooltipPosition="above" [disabled]="form.invalid"  (click)="crearTarea()">
+    <mat-icon> add </mat-icon> Crear Tarea
+  </button>
+</form>

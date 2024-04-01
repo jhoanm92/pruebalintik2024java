@@ -1,0 +1,70 @@
+<form [formGroup]="form">
+  <!-- <mat-form-field>
+    <input matInput placeholder="bussinessId" formControlName="id">
+  </mat-form-field> -->
+  <br>
+  <mat-form-field>
+    <input matInput type="text" placeholder="nombre" formControlName="nombre">
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <input matInput type="text" placeholder="descripcion" formControlName="descripcion">
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <mat-label>Tareas</mat-label>
+    <mat-select  formControlName="tareas">
+      <mat-option *ngFor="let element of tareasIndividuales" [value]="element">
+        {{element.nombre}} - {{element.descripcion}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-raised-button type="button" color="primary" matTooltip="Agregar Tarea"  matTooltipPosition="above" [disabled]="form.invalid"  (click)="agregarTarea()">
+    <mat-icon> add </mat-icon> Agregar Tarea
+  </button>
+  <button mat-raised-button type="button" color="primary" matTooltip="Crear Tarea"  matTooltipPosition="above"  (click)="crearTarea()">
+    <mat-icon> add </mat-icon> Crear Tarea
+  </button>
+</form>
+
+<mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+  <ng-container matColumnDef="nombre">
+    <mat-header-cell mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let element"> {{element.nombre}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="descripcion">
+    <mat-header-cell mat-header-cell *matHeaderCellDef> Descripcion </mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let element"> {{element.descripcion}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="estado">
+    <form [formGroup]="formEstado">
+      <mat-header-cell mat-header-cell *matHeaderCellDef> Descripcion </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let element">
+        <mat-form-field>
+          <mat-label>Estado</mat-label>
+          <mat-select formControlName="estodoForm" (selectionChange)="cambioEstado(element)">
+            <mat-option *ngFor="let item of estados" [value]="item.id">
+              {{item.tipo}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-cell>
+    </form>
+  </ng-container>
+
+  <ng-container matColumnDef="acciones">
+    <mat-header-cell mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let element; let i = index">
+      <button mat-icon-button color="warn" matTooltip="Eliminar tarea"  matTooltipPosition="above" (click)="eliminarTarea(i)">
+        <mat-icon> delete </mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row matRipple *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>

@@ -1,0 +1,39 @@
+
+<button mat-raised-button color="primary" matTooltip="Eliminar Notas"  matTooltipPosition="above" [routerLink]="['/tareas']">
+  Crear Proyecto
+  <mat-icon> add </mat-icon>
+</button>
+
+<mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+  <ng-container matColumnDef="nombre">
+    <mat-header-cell mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let element"> {{element.nombre}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="descripcion">
+    <mat-header-cell mat-header-cell *matHeaderCellDef> Descripcion </mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let element"> {{element.descripcion}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="tarea">
+    <mat-header-cell mat-header-cell *matHeaderCellDef> Tareas </mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let element">
+      <button mat-icon-button color="primary" matTooltip="Ver Tareas"  matTooltipPosition="above" [routerLink]="['/tareas', element.id]">
+        <mat-icon> visibility </mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="acciones">
+    <mat-header-cell mat-header-cell *matHeaderCellDef> Eliminar </mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let element">
+      <button mat-icon-button color="warn" matTooltip="Eliminar Proyecto"  matTooltipPosition="above" (click)="eliminar(element.id)">
+        <mat-icon> delete </mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row matRipple *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
